@@ -8,21 +8,22 @@ class PDF:
         self.page1 = self.doc[0]
         self.page2 = self.doc[1]
         self.page1_words = self.page1.get_text("words")
+        print(self.page1_words)
         self.page2_words = self.page2.get_text("words")
 
-        self.county, self.state = self.multi_line_info(fitz.Rect(35, 144, 201, 186), self.page1_words)
+        self.county, self.state = self.multi_line_info(fitz.Rect(35, 144, 375, 186), self.page1_words)
         self.number_of_farms = self.single_line_info(fitz.Rect(104, 288, 265, 300), self.page1_words)
         self.land_in_farms = self.single_line_info(fitz.Rect(122, 302, 265, 313), self.page1_words)
         self.average_size_of_farms = self.single_line_info(fitz.Rect(150, 316, 265, 327), self.page1_words)
 
         self.acres_1_9, self.acres_10_49, self.acres_50_179, self.acres_180_499, self.acres_500_999, \
-            self.acres_1000_plus = self.multi_line_info(fitz.Rect(448, 601, 464, 679), self.page1_words)
+            self.acres_1000_plus = self.multi_line_info(fitz.Rect(402, 601, 464, 679), self.page1_words)
 
         self.cropland, self.pastureland, self.woodland, self.other = \
-            self.multi_line_info(fitz.Rect(560, 372, 577, 423), self.page1_words)
+            self.multi_line_info(fitz.Rect(452, 372, 577, 423), self.page1_words)
 
         self.broilers, self.cattle, self.goats, self.hogs, self.horses, self.layers, self.pullets, \
-            self.sheep, self.turkeys = self.multi_line_info(fitz.Rect(500, 572, 577, 667), self.page2_words)
+            self.sheep, self.turkeys = self.multi_line_info(fitz.Rect(472, 572, 577, 667), self.page2_words)
 
         self.crop_sales = self.single_line_info(fitz.Rect(63, 159, 302, 171), self.page2_words)
         self.livestock_sales = self.single_line_info(fitz.Rect(175, 292, 302, 304), self.page2_words)
@@ -69,5 +70,22 @@ if __name__ == '__main__':
     print(pdf.state)
     print(pdf.county)
 
-    print(pdf.crop_sales)
-    print(pdf.livestock_sales)
+    print("Crop Sales: ", pdf.crop_sales)
+    print("Livestock Salse: ", pdf.livestock_sales)
+    print("Number of farms: ", pdf.number_of_farms)
+    print("Land in farms: ", pdf.land_in_farms)
+    print("Average size of farms: ", pdf.average_size_of_farms)
+    print(" ")
+    print("Acres list: ")
+    print(pdf.acres_1_9)
+    print(pdf.acres_10_49)
+    print(pdf.acres_50_179)
+    print(pdf.acres_180_499)
+    print(pdf.acres_500_999)
+    print(pdf.acres_1000_plus)
+    print(" ")
+    print("Land in Farms By Use: ")
+    print(pdf.cropland)
+    print(pdf.pastureland)
+    print(pdf.woodland)
+    print(pdf.other)
