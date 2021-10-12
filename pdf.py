@@ -11,9 +11,9 @@ class PDF:
         self.page2_words = self.page2.get_text("words")
 
         self.county, self.state = self.get_location()
-        self.number_of_farms = self.get_number_of_farms()
-        self.land_in_farms = self.get_land_in_farms()
-        self.average_size_of_farms = self.get_average_size_of_farms()
+        self.number_of_farms = self.single_line_info(fitz.Rect(104, 288, 265, 300), self.page1_words)
+        self.land_in_farms = self.single_line_info(fitz.Rect(122, 302, 265, 313), self.page1_words)
+        self.average_size_of_farms = self.single_line_info(fitz.Rect(150, 316, 265, 327), self.page1_words)
 
     def get_words_page(self, page):
         return page.get_text("words")
@@ -51,29 +51,10 @@ class PDF:
 
         return county, state
 
-    def get_number_of_farms(self):
-        num_farms_rect = fitz.Rect(104, 288, 265, 300)
-        num_farms_words = self.words_in_rect(num_farms_rect, self.page1_words)
-
-        num_farms_text = self.make_text(num_farms_words)
-
-        return num_farms_text
-
-    def get_land_in_farms(self):
-        land_farms_rect = fitz.Rect(122, 302, 265, 313)
-        land_farms_words = self.words_in_rect(land_farms_rect, self.page1_words)
-
-        land_farms_text = self.make_text(land_farms_words)
-
-        return land_farms_text
-
-    def get_average_size_of_farms(self):
-        average_farms_rect = fitz.Rect(150, 316, 265, 327)
-        average_farms_words = self.words_in_rect(average_farms_rect, self.page1_words)
-
-        average_farms_text = self.make_text(average_farms_words)
-
-        return average_farms_text
+    def single_line_info(self, rect, page_words):
+        line_words = self.words_in_rect(rect, page_words)
+        line_text = self.make_text(line_words)
+        return line_text
 
 if __name__ == '__main__':
     pdf = PDF('cp44007.pdf')
