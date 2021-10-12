@@ -8,7 +8,6 @@ class PDF:
         self.page1 = self.doc[0]
         self.page2 = self.doc[1]
         self.page1_words = self.page1.get_text("words")
-        print(self.page1_words)
         self.page2_words = self.page2.get_text("words")
 
         self.county, self.state = self.multi_line_info(fitz.Rect(35, 144, 375, 186), self.page1_words)
