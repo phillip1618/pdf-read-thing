@@ -8,8 +8,8 @@ class PDF:
         self.page1 = self.doc[0]
         self.page2 = self.doc[1]
         self.page1_words = self.page1.get_text("words")
-        print(self.page1_words)
         self.page2_words = self.page2.get_text("words")
+        print(self.page2_words)
 
         self.county, self.state = self.multi_line_info(fitz.Rect(35, 144, 201, 186), self.page1_words)
         self.number_of_farms = self.single_line_info(fitz.Rect(104, 288, 265, 300), self.page1_words)
@@ -21,6 +21,9 @@ class PDF:
 
         self.cropland, self.pastureland, self.woodland, self.other = \
             self.multi_line_info(fitz.Rect(560, 372, 577, 423), self.page1_words)
+
+        self.broilers, self.cattle, self.goats, self.hogs, self.horses, self.layers, self.pullets, \
+            self.sheep, self.turkeys = self.multi_line_info(fitz.Rect(500, 572, 577, 667), self.page2_words)
 
     def get_words_page(self, page):
         return page.get_text("words")
@@ -56,15 +59,20 @@ class PDF:
         multi_line_text = self.make_text(multi_line_words)
         multi_text_list = multi_line_text.splitlines()
 
-        return tuple(multi_text_list)
+        for text in multi_text_list:
+            yield text
 
 if __name__ == '__main__':
     pdf = PDF('cp44007.pdf')
     print(pdf.state)
     print(pdf.county)
-    print(pdf.number_of_farms)
-    print(pdf.land_in_farms)
-    print(pdf.average_size_of_farms)
-    print(pdf.multi_line_info(fitz.Rect(448, 601, 464, 679), pdf.page1_words))
-    print(pdf.multi_line_info(fitz.Rect(560, 372, 577, 423), pdf.page1_words))
 
+    print(pdf.broilers)
+    print(pdf.cattle)
+    print(pdf.goats)
+    print(pdf.hogs)  
+    print(pdf.horses) 
+    print(pdf.layers) 
+    print(pdf.pullets)
+    print(pdf.sheep)
+    print(pdf.turkeys)
