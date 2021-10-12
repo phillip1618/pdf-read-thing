@@ -12,6 +12,7 @@ class PDF:
 
         self.county, self.state = self.get_location()
         self.number_of_farms = self.get_number_of_farms()
+        self.land_in_farms = self.get_land_in_farms()
 
     def get_words_page(self, page):
         return page.get_text("words")
@@ -57,9 +58,18 @@ class PDF:
 
         return num_farms_text
 
+    def get_land_in_farms(self):
+        land_farms_rect = fitz.Rect(122, 302, 265, 313)
+        land_farms_words = self.words_in_rect(land_farms_rect, self.page1_words)
+
+        land_farms_text = self.make_text(land_farms_words)
+
+        return land_farms_text
+
 if __name__ == '__main__':
     pdf = PDF('cp44007.pdf')
     print(pdf.state)
     print(pdf.county)
     print(pdf.number_of_farms)
+    print(pdf.land_in_farms)
 
