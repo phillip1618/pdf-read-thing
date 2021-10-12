@@ -10,7 +10,7 @@ class PDF:
         self.page1_words = self.page1.get_text("words")
         self.page2_words = self.page2.get_text("words")
 
-        self.county, self.state = self.get_location()
+        self.county, self.state = self.multi_line_info(fitz.Rect(35, 144, 201, 186), self.page1_words)
         self.number_of_farms = self.single_line_info(fitz.Rect(104, 288, 265, 300), self.page1_words)
         self.land_in_farms = self.single_line_info(fitz.Rect(122, 302, 265, 313), self.page1_words)
         self.average_size_of_farms = self.single_line_info(fitz.Rect(150, 316, 265, 327), self.page1_words)
@@ -38,23 +38,18 @@ class PDF:
         lines = list(line_dict.items())
         lines.sort()  # sort vertically
         return "\n".join([" ".join(line[1]) for line in lines])
-    
-    def get_location(self):
-        location_rect = fitz.Rect(35, 144, 201, 186)
-        location_words = self.words_in_rect(location_rect, self.page1_words)
-
-        location_line_text = self.make_text(location_words)
-        location_text_list = location_line_text.splitlines()
-
-        county = location_text_list[0]
-        state = location_text_list[1]
-
-        return county, state
 
     def single_line_info(self, rect, page_words):
         line_words = self.words_in_rect(rect, page_words)
         line_text = self.make_text(line_words)
         return line_text
+
+    def multi_line_info(self, rect, page_words):
+        multi_line_words = self.words_in_rect(rect, page_words)
+        multi_line_text = self.make_text(multi_line_words)
+        multi_text_list = multi_line_text.splitlines()
+
+        return tuple(multi_text_list)
 
 if __name__ == '__main__':
     pdf = PDF('cp44007.pdf')
