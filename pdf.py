@@ -25,6 +25,9 @@ class PDF:
         self.broilers, self.cattle, self.goats, self.hogs, self.horses, self.layers, self.pullets, \
             self.sheep, self.turkeys = self.multi_line_info(fitz.Rect(500, 572, 577, 667), self.page2_words)
 
+        self.crop_sales = self.single_line_info(fitz.Rect(63, 159, 302, 171), self.page2_words)
+        self.livestock_sales = self.single_line_info(fitz.Rect(175, 292, 302, 304), self.page2_words)
+
     def get_words_page(self, page):
         return page.get_text("words")
 
@@ -67,12 +70,5 @@ if __name__ == '__main__':
     print(pdf.state)
     print(pdf.county)
 
-    print(pdf.broilers)
-    print(pdf.cattle)
-    print(pdf.goats)
-    print(pdf.hogs)  
-    print(pdf.horses) 
-    print(pdf.layers) 
-    print(pdf.pullets)
-    print(pdf.sheep)
-    print(pdf.turkeys)
+    print(pdf.crop_sales)
+    print(pdf.livestock_sales)
