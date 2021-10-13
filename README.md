@@ -1,6 +1,6 @@
 # pdf-read-thing
 
-Setup
+## Setup/Usage
 
 1. Clone the repo: `git clone https://github.com/phillip1618/pdf-read-thing.git`
 2. Install Python 3
