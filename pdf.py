@@ -10,7 +10,7 @@ class PDF:
         self.page1_words = self.page1.get_text("words")
         self.page2_words = self.page2.get_text("words")
 
-        self.county, self.state = self.multi_line_info(fitz.Rect(35, 144, 375, 186), self.page1_words)
+        self.county, self.state = self.multi_line_info(fitz.Rect(35, 144, 340, 186), self.page1_words)
         self.number_of_farms = self.single_line_info(fitz.Rect(104, 288, 265, 300), self.page1_words)
         self.land_in_farms = self.single_line_info(fitz.Rect(122, 302, 265, 313), self.page1_words)
         self.average_size_of_farms = self.single_line_info(fitz.Rect(150, 316, 265, 327), self.page1_words)
@@ -65,7 +65,7 @@ class PDF:
             yield text
 
 if __name__ == '__main__':
-    pdf = PDF('cp44007.pdf')
+    pdf = PDF('data/cp44007.pdf')
     print(pdf.state)
     print(pdf.county)
 
