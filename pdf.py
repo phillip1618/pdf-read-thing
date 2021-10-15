@@ -16,10 +16,10 @@ class PDF:
         self.average_size_of_farms = self.single_line_info(fitz.Rect(150, 316, 265, 327), self.page1_words)
 
         self.acres_1_9, self.acres_10_49, self.acres_50_179, self.acres_180_499, self.acres_500_999, \
-            self.acres_1000_plus = self.multi_line_info(fitz.Rect(402, 601, 464, 679), self.page1_words)
+            self.acres_1000_plus = self.multi_line_info(fitz.Rect(402, 583, 464, 679), self.page1_words)
 
         self.cropland, self.pastureland, self.woodland, self.other = \
-            self.multi_line_info(fitz.Rect(452, 372, 577, 423), self.page1_words)
+            self.multi_line_info(fitz.Rect(452, 350, 577, 423), self.page1_words)
 
         self.broilers, self.cattle, self.goats, self.hogs, self.horses, self.layers, self.pullets, \
             self.sheep, self.turkeys = self.multi_line_info(fitz.Rect(472, 572, 577, 667), self.page2_words)
@@ -65,7 +65,7 @@ class PDF:
             yield text
 
 if __name__ == '__main__':
-    pdf = PDF('data/cp44007.pdf')
+    pdf = PDF('data/cp31005.pdf')
     print(pdf.state)
     print(pdf.county)
 
